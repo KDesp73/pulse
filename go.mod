@@ -1,4 +1,4 @@
-module mqtt-client
+module pulse
 
 go 1.23.6
 

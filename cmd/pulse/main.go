@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"log"
-	broker "mqtt-client/internal/broker"
-	"mqtt-client/internal/config"
+	broker "pulse/internal/broker"
+	"pulse/internal/config"
 	"net/http"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
