@@ -10,16 +10,6 @@ application.
 
 ![image](https://github.com/user-attachments/assets/3cb9db60-5b7e-48cb-be33-18c8c80faec4)
 
-<!--toc:start-->
-  - [Get Started](#get-started)
-    - [1. Clone the repo](#1-clone-the-repo)
-    - [2. Build the application](#2-build-the-application)
-    - [3. Generate and modify the configuration file](#3-generate-and-modify-the-configuration-file)
-    - [4. Run pulse to see live updates of your IoT device](#4-run-pulse-to-see-live-updates-of-your-iot-device)
-  - [License](#license)
-<!--toc:end-->
-
-
 ## Get Started
 
 ### 1. Clone the repo
