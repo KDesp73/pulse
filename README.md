@@ -1,12 +1,9 @@
 # pulse
 
-Pulse provides real-time data streaming and statistical insights through API 
-endpoints and Server-Sent Events (SSE). Users can create their own custom 
-frontend to visualize and interact with live data. The backend, built in Go, 
-handles data storage, updates, and statistics. 
-With flexible data feeds and API support, the system can be easily adapted for 
-a wide range of use cases, offering real-time monitoring and analytics for any 
-application.
+Pulse is an MQTT-based system designed to collect real-time data and provide 
+live feeds and statistics through API endpoints. It can be easily integrated 
+into custom frontends, offering users a flexible way to display and analyze 
+incoming MQTT messages for various applications.
 
 ![image](https://github.com/user-attachments/assets/3cb9db60-5b7e-48cb-be33-18c8c80faec4)
 
