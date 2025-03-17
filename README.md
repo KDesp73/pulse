@@ -33,7 +33,7 @@ Running
 ./pulse -generate-config
 ```
 
-Will generate
+Will generate `pulse.yml`
 
 ```yml
 mqtt:
