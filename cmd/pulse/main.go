@@ -1,9 +1,12 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
+	"os"
 	client "pulse/internal/client"
 	"pulse/internal/config"
 	"pulse/internal/database"
@@ -11,12 +14,54 @@ import (
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
+const configTemplate = `mqtt:
+  server: "broker.mqtt"
+  port: 8883
+  username: "your-username"
+  password: "your-password"
+  topic: "your/topic"
+web:
+  port: 8080
+  page: your-dashboard.html
+`
+
+func generateConfig() {
+	file, err := os.Create("pulse.yml")
+	if err != nil {
+		fmt.Println("Error creating config file:", err)
+		return
+	}
+	defer file.Close()
+
+	tmpl, err := template.New("config").Parse(configTemplate)
+	if err != nil {
+		fmt.Println("Error parsing template:", err)
+		return
+	}
+
+	err = tmpl.Execute(file, nil)
+	if err != nil {
+		fmt.Println("Error executing template:", err)
+		return
+	}
+
+	fmt.Println("Config file generated successfully: config.yml")
+}
 
 func main() {
+	generateConfigFlag := flag.Bool("generate-config", false, "Generate a template configuration file")
+
+	flag.Parse()
+
+	if *generateConfigFlag {
+		generateConfig()
+		return
+	}
+
 	database.InitDB()
 
 	var err error
-    config.GlobalConfig, err = config.LoadConfig("mqtt.yml")
+    config.GlobalConfig, err = config.LoadConfig("pulse.yml")
     if err != nil {
         panic(fmt.Sprintf("Could not load config: %v", err))
     }
