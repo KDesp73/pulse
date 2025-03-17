@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Monitor Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 2rem;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .card {
+            background: #fff;
+            padding: 2rem;
+            margin: 1rem auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .data-item {
+            text-align: center;
+            background-color: #f1f1f1;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        .data-label {
+            font-weight: bold;
+            font-size: 1.4rem;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        .data-value {
+            font-size: 1.8rem;
+            color: #333;
+        }
+    </style>
+</head>
+<script>
+    const eventSource = new EventSource("/events");
+
+    eventSource.onmessage = function(event) {
+        try {
+            const data = JSON.parse(event.data);
+            console.log("Data: ", data);
+
+            document.getElementById('temperature').textContent = data.temperature + " °C";
+            document.getElementById('humidity').textContent = data.humidity + " %";
+            document.getElementById('soil').textContent = data.moisture + " %";
+            document.getElementById('light').textContent = data.light + " %";
+        } catch (e) {
+            console.error('Error parsing SSE data:', e);
+        }
+    };
+</script>
+<body>
+    <h1>🌱 Plant Monitor Dashboard</h1>
+    <div class="card">
+        <div class="grid">
+            <div class="data-item">
+                <span class="data-label">Temperature</span>
+                <span id="temperature" class="data-value">--</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Humidity</span>
+                <span id="humidity" class="data-value">--</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Soil Moisture</span>
+                <span id="soil" class="data-value">--</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Light</span>
+                <span id="light" class="data-value">--</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

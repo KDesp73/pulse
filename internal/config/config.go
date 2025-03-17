@@ -17,9 +17,12 @@ type Config struct {
 		Password string `yaml:"password"`
 	} `yaml:"mqtt"`
 	Web struct {
-		Port int `yaml:"port"`
+		Port int    `yaml:"port"`
+		Page string `yaml:"page"`
 	} `yaml:"web"`
 }
+
+var GlobalConfig *Config
 
 func LoadConfig(path string) (*Config, error) {
 	file, err := os.Open(path)
