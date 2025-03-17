@@ -47,6 +47,10 @@ func main() {
     // Set up HTTP handlers for the dashboard and SSE events
     http.HandleFunc("/", client.DashboardHandler)
     http.HandleFunc("/events", client.SSEHandler)
+	http.HandleFunc("/api/avg-temp", database.GetAvgTemperature)
+	http.HandleFunc("/api/min-max-temp", database.GetMinMaxTemperature)
+	http.HandleFunc("/api/avg-moist", database.GetAvgSoilMoisture)
+	http.HandleFunc("/api/latest", database.GetLatestReading)
 
     // Start the web server
     port := config.GlobalConfig.Web.Port

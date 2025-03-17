@@ -44,6 +44,15 @@
             font-size: 1.8rem;
             color: #333;
         }
+        .statistics {
+            margin-top: 2rem;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
     </style>
 </head>
 <script>
@@ -61,6 +70,47 @@
         } catch (e) {
             console.error('Error parsing SSE data:', e);
         }
+    };
+
+    // Fetch statistics from API endpoints
+    function fetchStatistics() {
+        fetch('/api/avg-temp')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('avg-temp').textContent = data.average_temperature + " °C";
+            })
+            .catch(error => console.error('Error fetching avg temperature:', error));
+
+        fetch('/api/min-max-temp')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('min-temp').textContent = data.min_temperature + " °C";
+                document.getElementById('max-temp').textContent = data.max_temperature + " °C";
+            })
+            .catch(error => console.error('Error fetching min/max temperature:', error));
+
+        fetch('/api/avg-moist')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('avg-soil').textContent = data.average_soil_moisture + " %";
+            })
+            .catch(error => console.error('Error fetching avg soil moisture:', error));
+
+        fetch('/api/latest')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('latest-timestamp').textContent = data.timestamp;
+                document.getElementById('latest-temp').textContent = data.temperature + " °C";
+                document.getElementById('latest-humidity').textContent = data.humidity + " %";
+                document.getElementById('latest-soil').textContent = data.soil + " %";
+                document.getElementById('latest-light').textContent = data.light + " %";
+            })
+            .catch(error => console.error('Error fetching latest reading:', error));
+    }
+
+    // Call fetchStatistics once the page is loaded
+    window.onload = function() {
+        fetchStatistics();
     };
 </script>
 <body>
@@ -82,6 +132,49 @@
             <div class="data-item">
                 <span class="data-label">Light</span>
                 <span id="light" class="data-value">--</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="statistics">
+        <h2>Plant Statistics</h2>
+        <div class="grid">
+            <div class="data-item">
+                <span class="data-label">Average Temperature</span>
+                <span id="avg-temp" class="data-value">--</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Min Temperature</span>
+                <span id="min-temp" class="data-value">--</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Max Temperature</span>
+                <span id="max-temp" class="data-value">--</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Average Soil Moisture</span>
+                <span id="avg-soil" class="data-value">--</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Latest Timestamp</span>
+                <span id="latest-timestamp" class="data-value">--</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Latest Temperature</span>
+                <span id="latest-temp" class="data-value">--</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Latest Humidity</span>
+                <span id="latest-humidity" class="data-value">--</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Latest Soil Moisture</span>
+                <span id="latest-soil" class="data-value">--</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Latest Light</span>
+                <span id="latest-light" class="data-value">--</span>
             </div>
         </div>
     </div>
