@@ -67,6 +67,8 @@
             document.getElementById('humidity').textContent = data.humidity + " %";
             document.getElementById('soil').textContent = data.moisture + " %";
             document.getElementById('light').textContent = data.light + " %";
+
+            fetchStatistics();
         } catch (e) {
             console.error('Error parsing SSE data:', e);
         }
@@ -100,10 +102,6 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('latest-timestamp').textContent = data.timestamp;
-                document.getElementById('latest-temp').textContent = data.temperature + " °C";
-                document.getElementById('latest-humidity').textContent = data.humidity + " %";
-                document.getElementById('latest-soil').textContent = data.soil + " %";
-                document.getElementById('latest-light').textContent = data.light + " %";
             })
             .catch(error => console.error('Error fetching latest reading:', error));
     }
@@ -159,22 +157,6 @@
             <div class="data-item">
                 <span class="data-label">Latest Timestamp</span>
                 <span id="latest-timestamp" class="data-value">--</span>
-            </div>
-            <div class="data-item">
-                <span class="data-label">Latest Temperature</span>
-                <span id="latest-temp" class="data-value">--</span>
-            </div>
-            <div class="data-item">
-                <span class="data-label">Latest Humidity</span>
-                <span id="latest-humidity" class="data-value">--</span>
-            </div>
-            <div class="data-item">
-                <span class="data-label">Latest Soil Moisture</span>
-                <span id="latest-soil" class="data-value">--</span>
-            </div>
-            <div class="data-item">
-                <span class="data-label">Latest Light</span>
-                <span id="latest-light" class="data-value">--</span>
             </div>
         </div>
     </div>
